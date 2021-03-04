@@ -1,42 +1,43 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import ArtParticles from '../images/art_particles.png';
+import KTFatCake from '../images/KT_fat_cake_tweet.png';
+import Meme from '../images/meme.jpg';
+import RohanFat from '../images/rohan_fat_zoom.png';
+import Wanker from '../images/wanker.png'
+
 
 // const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const AutoPlaySwipeableViews = SwipeableViews;
 
 const tutorialSteps = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
-    imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+    label: 'January',
+    imgPath: ArtParticles,
   },
   {
-    label: 'Bird',
+    label: '',
     imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+      KTFatCake,
   },
   {
-    label: 'Bali, Indonesia',
-    imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+    label: '',
+    imgPath: Meme,
   },
   {
-    label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-    imgPath:
-      'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
+    label: '',
+    imgPath: RohanFat,
   },
   {
-    label: 'Goč, Serbia',
+    label: '',
     imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+      Wanker,
   },
 ];
 
@@ -77,11 +78,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 400,
     overflow: 'hidden',
     width: '100%',
-    borderRadius: "30px"
+    borderRadius: "30px",
+    backgroundColor: "blue"
   },
 }));
 
-function Slides() {
+export default function Slides({month}) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -101,10 +103,7 @@ function Slides() {
 
   return (
     <div className={classes.root}>
-
-      {/* <div className={classes.header}>
-        <Typography>{tutorialSteps[activeStep].label}</Typography>
-      </div> */}
+      <p>{month}</p>
         <AutoPlaySwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={activeStep}
@@ -114,7 +113,9 @@ function Slides() {
           {tutorialSteps.map((step, index) => (
             <div key={step.label}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <img className={classes.img} src={step.imgPath} alt={step.label} />
+                <div>
+                  <img className={classes.img} src={step.imgPath} alt={step.label} />
+                </div>
               ) : null}
             </div>
           ))}
@@ -128,14 +129,14 @@ function Slides() {
             activeStep={activeStep}
             nextButton={
               <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                {/* Next */}
+                {/* next button */}
                 {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
               </Button>
             }
             backButton={
               <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
                 {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                {/* Back */}
+                {/* back button */}
               </Button>
             }
           />
@@ -143,5 +144,3 @@ function Slides() {
     </div>
   );
 }
-
-export default Slides;
