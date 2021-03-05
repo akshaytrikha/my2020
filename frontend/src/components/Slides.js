@@ -6,40 +6,10 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import ArtParticles from '../images/art_particles.png';
-import KTFatCake from '../images/KT_fat_cake_tweet.png';
-import Meme from '../images/meme.jpg';
-import RohanFat from '../images/rohan_fat_zoom.png';
-import Wanker from '../images/wanker.png'
 
 
 // const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const AutoPlaySwipeableViews = SwipeableViews;
-
-const tutorialSteps = [
-  {
-    label: 'January',
-    imgPath: ArtParticles,
-  },
-  {
-    label: '',
-    imgPath:
-      KTFatCake,
-  },
-  {
-    label: '',
-    imgPath: Meme,
-  },
-  {
-    label: '',
-    imgPath: RohanFat,
-  },
-  {
-    label: '',
-    imgPath:
-      Wanker,
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     textAlign: "center",
     height: 50,
-    // paddingLeft: theme.spacing(4),
     maxWidth: 400,
     width: "100%"
   },
@@ -73,21 +42,20 @@ const useStyles = makeStyles((theme) => ({
     alpha: "0.4"
   },
   img: {
-    height: 255,
+    height: 260,
     display: 'block',
-    maxWidth: 400,
+    // maxWidth: 450,
     overflow: 'hidden',
     width: '100%',
     borderRadius: "30px",
-    backgroundColor: "blue"
   },
 }));
 
-export default function Slides({month}) {
+export default function Slides({month, medias}) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+  const maxSteps = medias.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -110,11 +78,11 @@ export default function Slides({month}) {
           onChangeIndex={handleStepChange}
           enableMouseEvents
         >
-          {tutorialSteps.map((step, index) => (
-            <div key={step.label}>
+          {medias.map((media, index) => (
+            <div key={media.label}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <div>
-                  <img className={classes.img} src={step.imgPath} alt={step.label} />
+                  <img className={classes.img} src={media.imgPath} alt={media.label} />
                 </div>
               ) : null}
             </div>
