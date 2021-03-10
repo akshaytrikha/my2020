@@ -38,6 +38,9 @@ const localMedia = [
     imgPath: ArtParticles,
   },
   {
+    text: 'I went for a walk to MBS in the middle of the night'
+  },
+  {
     label: 'KT Tweet',
     imgPath: KTFatCake,
   },
@@ -83,7 +86,7 @@ export default function MediaStepper() {
           }>
         {steps.map((label, index) => (
             <Step key={label} active={true} style={{}}>
-              <StepLabel><p></p></StepLabel>
+              <StepLabel></StepLabel>
               <StepContent>
                   {getStepContent(index)} 
               </StepContent>

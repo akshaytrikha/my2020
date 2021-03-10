@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
@@ -30,17 +31,6 @@ const useStyles = makeStyles((theme) => ({
   containerRow: {
     display: "grid"
   },
-  layer1: {
-    gridColumn: 1,
-    gridRow: 1,
-    backgroundColor: "#000cf6"
-  },
-  layer2: {
-    gridColumn: 1,
-    gridRow: 1,
-    backgroundColor: "#ABABAB",
-    alpha: "0.4"
-  },
   img: {
     height: 260,
     display: 'block',
@@ -48,6 +38,22 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
     borderRadius: "30px",
+  },
+  textfield: {
+    // height: '100%',
+    marginTop: "10%",
+    overflow: 'hidden',
+    width: '99%',
+    borderRadius: "30px",
+    border: "1px solid",
+    borderColor: "#bdbdbd"
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '200',
+    // border: '3px solid green'
   },
 }));
 
@@ -69,9 +75,18 @@ export default function Slides({month, medias}) {
     setActiveStep(step);
   };
 
+  function renderMedia(currentMedia) {
+    if ('imgPath' in currentMedia) {
+      return <img className={classes.img} src={currentMedia.imgPath} alt={currentMedia.label} />
+    } else if ('text' in currentMedia) {
+      return <TextField defaultValue={currentMedia.text} className={classes.textfield} inputProps={{style: {fontSize: 15, padding: 10, paddingLeft: 15, paddingRight: 15}}} 
+              id="thought" variant="standard" fullWidth="True" multiline="True" rows={6} rowsMax={9}/>
+    }
+  }
+
   return (
     <div className={classes.root}>
-      <p>{month}</p>
+      <p style={{fontSize: 20}}>{month}</p>
         <AutoPlaySwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={activeStep}
@@ -81,8 +96,8 @@ export default function Slides({month, medias}) {
           {medias.map((media, index) => (
             <div key={media.label}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <div>
-                  <img className={classes.img} src={media.imgPath} alt={media.label} />
+                <div className="center">
+                  {renderMedia(media)}
                 </div>
               ) : null}
             </div>
